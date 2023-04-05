@@ -31,7 +31,9 @@ class TestLinearRegressionFirstOrder(unittest.TestCase):
 
     def test_fit(self):
         X = np.vstack(np.linspace(-5, 5, num=11))
-        y = X*3 - 2
+        assert X.ndim == 2
+        y = (X*3 - 2).ravel()
+        assert y.ndim == 1
         old_score = self.linreg.score(X, y)
         self.assertTrue(len(self.linreg.loss) == 0, "List of loss scores should be empty at start")
         self.linreg.fit(X, y)
@@ -40,7 +42,7 @@ class TestLinearRegressionFirstOrder(unittest.TestCase):
 
     def test_score(self):
         X = np.vstack(np.linspace(-5, 5, num=11))
-        y = X*3 - 2
+        y = (X*3 - 2).ravel()
         self.linreg.theta[0] = -2
         self.linreg.theta[1] = 3
         self.assertAlmostEqual(self.linreg.score(X, y), 0, 'The loss should be zero here.')
@@ -86,7 +88,7 @@ class TestLinearRegressionSecondOrder(unittest.TestCase):
 
     def test_fit(self):
         X = np.vstack(np.linspace(-5, 5, num=11))
-        y = X*3 - 2
+        y = (X*3 - 2).ravel()
         old_score = self.linreg.score(X, y)
         self.assertTrue(len(self.linreg.loss) == 0, "List of loss scores should be empty at start")
         self.linreg.fit(X, y)
@@ -95,7 +97,7 @@ class TestLinearRegressionSecondOrder(unittest.TestCase):
 
     def test_score(self):
         X = np.vstack(np.linspace(-5, 5, num=11))
-        y = X*3 - 2
+        y = (X*3 - 2).ravel()
         self.linreg.theta[0] = -2
         self.linreg.theta[1] = 3
         self.linreg.theta[2] = 0
@@ -107,4 +109,4 @@ class TestLinearRegressionSecondOrder(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest.main(verbosity=2)
