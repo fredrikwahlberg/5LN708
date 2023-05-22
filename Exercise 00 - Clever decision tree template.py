@@ -17,11 +17,22 @@ class CleverDecisionTree:
         raise NotImplementedError
 
 if __name__ == '__main__':
-    from sklearn.datasets import make_blobs # Imports only used in the test code here
-    X, y = make_blobs(n_samples=200, centers=3, cluster_std=.7, n_features=2, random_state=0)
-
+    # Imports only used in the test code here
     import matplotlib.pyplot as plt
+
+    X = np.tile([[0.9615202, 4.43376825], [1.99127366, 0.80487522], [-1.6656056, 2.88982984]], (70, 1))
+    np.random.seed(0)
+    X += np.random.normal(0, .7, size=X.shape)
+    y = np.tile([0, 1, 2], 70)
+
+    # clf = CleverDecisionTree()
+    # print("Accuracy: %.1f%%" % (100*clf.score(X, y)))
+    
     plt.figure()
     plt.scatter(X[:, 0], X[:, 1], c=y, cmap='coolwarm')
+    # plt.plot([1, 1], [-1, 6])
+    # plt.plot([-3, 3], [1, 1])
+    # plt.scatter(X[:, 0], X[:, 1], c=clf.predict(X), cmap='coolwarm')    
     plt.axis('square')
     plt.show()
+    

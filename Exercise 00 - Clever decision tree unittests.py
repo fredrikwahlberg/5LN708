@@ -5,8 +5,11 @@ import numpy as np
 class TestCleverDecisionTree(unittest.TestCase):
 
     def setUp(self):
-        from sklearn.datasets import make_blobs
-        self.X, self.y = make_blobs(n_samples=200, centers=3, cluster_std=.7, n_features=2, random_state=0)
+        self.X = np.tile([[0.9615202, 4.43376825], [1.99127366, 0.80487522], [-1.6656056, 2.88982984]], (70, 1))
+        np.random.seed(0)
+        self.X += np.random.normal(0, .7, size=self.X.shape)
+        self.y = np.tile([0, 1, 2], 70)
+
         self.clf = CleverDecisionTree()
 
     def test_instantiation(self):
@@ -20,7 +23,7 @@ class TestCleverDecisionTree(unittest.TestCase):
 
     def test_score(self):
         score = self.clf.score(self.X, self.y)
-        self.assertIsInstance(score, float, "score should return the accuarcy as a float between 0 and 1.")
+        self.assertIsInstance(score, float, "score should return the accuracy as a float between 0 and 1.")
         self.assertGreater(score, .90, "The accuracy is not high enough.")
 
 
