@@ -1,5 +1,5 @@
 import unittest
-from exercise1 import LinearRegression
+from exercise2 import LinearRegression
 import numpy as np
 
 class TestLinearRegressionFirstOrder(unittest.TestCase):
@@ -8,7 +8,9 @@ class TestLinearRegressionFirstOrder(unittest.TestCase):
         self.linreg = LinearRegression(n_order=1)
 
     def test_instantiation(self):
+        self.assertTrue(hasattr(self.linreg, 'loss'), "Can't find the vector or list for the loss")
         self.assertIsInstance(self.linreg.loss, list)
+        self.assertTrue(hasattr(self.linreg, 'theta'), "Can't find the parameter vector")
         self.assertTrue(self.linreg.theta is not None)
         self.assertEqual(len(self.linreg.theta), 2, "Wrong number of parameters for the given order")
         self.assertIsInstance(self.linreg.n_max_iterations, int)
@@ -45,11 +47,11 @@ class TestLinearRegressionFirstOrder(unittest.TestCase):
         y = (X*3 - 2).ravel()
         self.linreg.theta[0] = -2
         self.linreg.theta[1] = 3
-        self.assertAlmostEqual(self.linreg.score(X, y), 0, 'The loss should be zero here.')
+        self.assertAlmostEqual(self.linreg.score(X, y), 0, places=3, msg='The loss should be zero here.')
         self.linreg.theta[0] = -1
-        self.assertAlmostEqual(self.linreg.score(X, y), 11, 'There should be some loss here.')
+        self.assertAlmostEqual(self.linreg.score(X, y), 11, places=3, msg='There should be some loss here.')
         self.linreg.theta[0] = 0
-        self.assertAlmostEqual(self.linreg.score(X, y), 11*2**2, 'Are you using square loss?')
+        self.assertAlmostEqual(self.linreg.score(X, y), 11*2**2, places=3, msg='Are you using square loss?')
 
 class TestLinearRegressionSecondOrder(unittest.TestCase):
 
@@ -89,6 +91,7 @@ class TestLinearRegressionSecondOrder(unittest.TestCase):
     def test_fit(self):
         X = np.vstack(np.linspace(-5, 5, num=11))
         y = (X*3 - 2).ravel()
+        self.linreg.theta[:] = 0
         old_score = self.linreg.score(X, y)
         self.assertTrue(len(self.linreg.loss) == 0, "List of loss scores should be empty at start")
         self.linreg.fit(X, y)
@@ -101,11 +104,11 @@ class TestLinearRegressionSecondOrder(unittest.TestCase):
         self.linreg.theta[0] = -2
         self.linreg.theta[1] = 3
         self.linreg.theta[2] = 0
-        self.assertAlmostEqual(self.linreg.score(X, y), 0, 'The loss should be zero here.')
+        self.assertAlmostEqual(self.linreg.score(X, y), 0, places=3, msg='The loss should be zero here.')
         self.linreg.theta[0] = -1
-        self.assertAlmostEqual(self.linreg.score(X, y), 11, 'There should be some loss here.')
+        self.assertAlmostEqual(self.linreg.score(X, y), 11, places=3, msg='There should be some loss here.')
         self.linreg.theta[0] = 0
-        self.assertAlmostEqual(self.linreg.score(X, y), 11*2**2, 'Are you using square loss?')
+        self.assertAlmostEqual(self.linreg.score(X, y), 11*2**2, places=3, msg='Are you using square loss?')
 
 
 if __name__ == '__main__':
