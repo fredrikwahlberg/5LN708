@@ -1,5 +1,5 @@
 import unittest
-from exercise2 import LinearRegression
+from exercise1 import LinearRegression
 import numpy as np
 
 class TestLinearRegressionFirstOrder(unittest.TestCase):
