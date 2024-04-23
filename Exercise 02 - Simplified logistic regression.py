@@ -23,7 +23,7 @@ class TestSimplifiedLogisticRegression(unittest.TestCase):
         self.assertTrue(hasattr(self.model, 'n_max_iterations'), "Can't find the n_max_iterations parameter")
         self.assertIsInstance(self.model.n_max_iterations, int, "n_max_iterations should be an int")
         for method_name in ['predict', 'score', 'fit', '_fit', '_soft_predict', '_loss', '_sigmoid']:
-            self.assertTrue(hasattr(self.model, 'loss'), "Can't find the method %s" % method_name)
+            self.assertTrue(hasattr(self.model, method_name), "Can't find the method %s" % method_name)
 
     def test_sigmoid(self):
         self.assertAlmostEqual(self.model._sigmoid(0), .5, places=3, msg='Sigmoid function seems off')
