@@ -1,5 +1,5 @@
 import unittest
-from exercise4solution import FeedForwardNeuralNetwork
+from exercise4 import FeedForwardNeuralNetwork
 import numpy as np
 
 class TestFeedForwardNeuralNetwork(unittest.TestCase):
