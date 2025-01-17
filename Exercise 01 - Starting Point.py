@@ -17,10 +17,11 @@ class SimpleLinearRegression:
     def fit(self, X, y):
         """This method finds the slope and intercept for your data."""
         # Leave this as is. You will reimplement this in the next exercise.
-        assert isinstance(X, np.ndarray)
-        assert X.ndim == 2, "X should be a 2D array in sklearn"
-        assert isinstance(y, np.ndarray)
-        assert y.ndim == 1
+        assert isinstance(X, np.ndarray), "X should be a numpy array"
+        assert X.ndim == 2, "X should be a 2D array"
+        assert isinstance(y, np.ndarray), "X should be a numpy array"
+        assert y.ndim == 1, "y should be a 1D array"
+        assert X.shape[0] == y.shape[0], "The number of datapoints in X and y must match"
         slope, intercept = np.polyfit(X.ravel(), y, 1)
         self._theta[0] = intercept
         self._theta[1] = slope
