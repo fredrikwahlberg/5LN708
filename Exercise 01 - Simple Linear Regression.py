@@ -29,27 +29,42 @@ class TestSimpleLinearRegression(unittest.TestCase):
         self.model._theta[0] = 2
         self.model._theta[1] = 1
         prediction = self.model.predict(X)
-        self.assertEqual(prediction[0], 5, "predict() returned %s" % prediction)
+        self.assertEqual(prediction.ndim, 1, 
+                         msg="predict() should return an array with the shape (n,)")
+        self.assertEqual(prediction.shape[0], 1, 
+                         msg="predict() returns the wrong number of items")
+        self.assertEqual(prediction[0], 5,
+                         msg="predict() returned %s, not [5]" % prediction)
 
     def test_several_predictions(self):
         X = np.vstack([1, 2, 3])
         self.model._theta[0] = 2
         self.model._theta[1] = 1
         prediction = self.model.predict(X)
-        self.assertEqual(prediction[0], 3, "predict() returned %s" % prediction)
-        self.assertEqual(prediction[1], 4, "predict() returned %s" % prediction)
-        self.assertEqual(prediction[2], 5, "predict() returned %s" % prediction)
+        self.assertEqual(prediction.ndim, 1, 
+                         msg="predict() should return an array with the shape (n,)")
+        self.assertEqual(prediction.shape[0], 3, 
+                         msg="predict() returns the wrong number of items")
+        self.assertEqual(prediction[0], 3, 
+                         msg="predict() returned %s, not [3, 4, 5]" % prediction)
+        self.assertEqual(prediction[1], 4, 
+                         msg="predict() returned %s, not [3, 4, 5]" % prediction)
+        self.assertEqual(prediction[2], 5, 
+                         msg="predict() returned %s, not [3, 4, 5]" % prediction)
 
     def test_score(self):
         X = np.vstack(np.linspace(-5, 5, num=11))
         y = (X*3 - 2).ravel()
         self.model._theta[0] = -2
         self.model._theta[1] = 3
-        self.assertAlmostEqual(self.model.score(X, y), 0, places=3, msg='The loss should be zero here.')
+        self.assertAlmostEqual(self.model.score(X, y), 0, places=3, 
+                               msg='The loss should be zero here.')
         self.model._theta[0] = -1
-        self.assertAlmostEqual(self.model.score(X, y), 11, places=3, msg='There should be some loss here.')
+        self.assertAlmostEqual(self.model.score(X, y), 11, places=3, 
+                               msg='There should be some loss here.')
         self.model._theta[0] = 0
-        self.assertAlmostEqual(self.model.score(X, y), 11*2**2, places=3, msg='Are you using square loss?')
+        self.assertAlmostEqual(self.model.score(X, y), 11*(2**2), places=3, 
+                               msg='Are you using square loss?')
 
 
 if __name__ == '__main__':
