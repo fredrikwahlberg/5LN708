@@ -25,6 +25,7 @@ class SimpleLinearRegression:
         slope, intercept = np.polyfit(X.ravel(), y, 1)
         self._theta[0] = intercept
         self._theta[1] = slope
+        return self
 
     def score(self, X, y): 
         """Returns the sum of squares residual for the given inputs and outputs."""
