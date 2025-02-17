@@ -1,5 +1,5 @@
 import unittest
-from exercise2 import SimplifiedLogisticRegression
+from exercise3 import SimplifiedLogisticRegression
 import numpy as np
 
 class TestSimplifiedLogisticRegression(unittest.TestCase):
