@@ -8,7 +8,14 @@ class TestSimplifiedLogisticRegression(unittest.TestCase):
         self.X1 = np.asarray([[1, 1], [-1, -1]])
         self.y1 = np.asarray([0, 1])
         n_samples = 100
-        self.X2 = np.concatenate((np.ones((n_samples//2, 2)), -np.ones((n_samples//2, 2))))
+        # self.X2 = np.concatenate((np.ones((n_samples//2, 2)), -np.ones((n_samples//2, 2))))
+        # rng = np.random.default_rng(seed=0)
+        # self.X2 += rng.normal(0, .4, size=self.X2.shape)
+        # self.y2 = np.concatenate((np.zeros(n_samples//2), np.ones(n_samples//2)))
+        self.X2 = np.concatenate((np.vstack(np.linspace(-1, 1, num=n_samples//2)), 
+                                  np.vstack(np.linspace(1, -1, num=n_samples//2))), 
+                                 axis=1)
+        self.X2 = np.concatenate((self.X2-1, self.X2+1))
         rng = np.random.default_rng(seed=0)
         self.X2 += rng.normal(0, .4, size=self.X2.shape)
         self.y2 = np.concatenate((np.zeros(n_samples//2), np.ones(n_samples//2)))
@@ -48,7 +55,7 @@ class TestSimplifiedLogisticRegression(unittest.TestCase):
 
     def test_predict2(self):
         # Force 'trained' values
-        self.model._theta = np.asarray([0, -1, -1])
+        self.model._theta = np.asarray([0, 1, 1])
         # Larger data
         pred = self.model.predict(self.X2)
         self.assertEqual(pred[0], self.y2[0], msg="predict() returned %s" % pred)
