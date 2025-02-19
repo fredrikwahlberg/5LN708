@@ -39,7 +39,7 @@ class TestFeedForwardNeuralNetwork(unittest.TestCase):
         self.assertEqual(m1._theta1[0, 0], 0, msg)
         self.assertEqual(m1._theta1[-1, -1], 8, msg)
         self.assertEqual(m1._theta2[0, 0], 9, msg)
-        self.assertEqual(m1._theta2[-1, -1], 11, msg)
+        self.assertEqual(m1._theta2[-1, -1], 12, msg)
        
     def test_sigmoid(self):
         self.assertAlmostEqual(self.model._sigmoid(0), .5, places=3, 
